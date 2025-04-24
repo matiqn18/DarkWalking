@@ -98,7 +98,7 @@ func spawn_wall(mesh: Mesh, x: int, z: int):
 	
 	var wall_material :=StandardMaterial3D.new()
 	
-	var wall_texture: Texture2D = load("res://addons/wall.jpg")
+	var wall_texture: Texture2D = load("res://addons/W750Ztz.png")
 	wall_material.albedo_texture = wall_texture
 	wall.material_override = wall_material
 
