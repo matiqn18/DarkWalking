@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://caixal426aop4"]
+
+[ext_resource type="Script" uid="uid://bvi7lp0y8jkkb" path="res://kremówka.gd" id="1_0sfoq"]
+[ext_resource type="Texture2D" uid="uid://8so45wiq8lhe" path="res://addons/KREMÓWKA.png" id="1_uvir8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gt203"]
+radius = 0.3
+
+[node name="KREMÓWKA" type="Node3D"]
+script = ExtResource("1_0sfoq")
+
+[node name="Kremówkawidok" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.164074, 1.13562, -0.794271)
+texture = ExtResource("1_uvir8")
+
+[node name="AreaKremówka" type="Area3D" parent="Kremówkawidok"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kremówkawidok/AreaKremówka"]
+shape = SubResource("SphereShape3D_gt203")

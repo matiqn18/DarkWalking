@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqs83vi033p7j"]
+
+[ext_resource type="Texture2D" uid="uid://bthv6syfx8vvs" path="res://addons/papiez-z-kremowka.png" id="1_ba8gm"]
+[ext_resource type="Script" uid="uid://dq3tcy2i87ybh" path="res://door.gd" id="1_v6xrn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hun61"]
+albedo_color = Color(0.542954, 0.348081, 0.117009, 1)
+albedo_texture = ExtResource("1_ba8gm")
+uv1_scale = Vector3(2.5, 2.5, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ba8gm"]
+material = SubResource("StandardMaterial3D_hun61")
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6xrn"]
+size = Vector3(1, 2, 0.2)
+
+[node name="Drzwi" type="Node3D"]
+script = ExtResource("1_v6xrn")
+
+[node name="LeftDoor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ba8gm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor"]
+shape = SubResource("BoxShape3D_v6xrn")
