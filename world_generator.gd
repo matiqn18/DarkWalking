@@ -194,13 +194,29 @@ func spawn_player_and_door():
 	door_instance.position = Vector3(door_pos.x, 0.5, door_pos.y) # Zakładam, że drzwi też mają podobną wysokość
 	add_child(door_instance)
 	
-	var kremowka_pos = get_random_empty_position()
-	while kremowka_pos == player_pos or kremowka_pos == door_pos:
-		kremowka_pos = get_random_empty_position()
-		if kremowka_pos == Vector2i(-1, -1):
-			printerr("Nie udało się znaleźć unikalnej pustej pozycji dla kremówki!")
-			return
+	var kremowka_pos = Vector2i(-1, -1) 
+	var attempts = 0
+	var max_attempts = 100
 
+	while attempts < max_attempts:
+		attempts += 1
+		var potential_pos = get_random_empty_position()
+
+		if potential_pos == Vector2i(-1, -1):
+			printerr("Nie udało się znaleźć ŻADNEJ pustej pozycji dla kremówki w próbie nr ", attempts)
+			continue 
+
+
+		if potential_pos == player_pos or potential_pos == door_pos:
+			continue
+
+		if path_exists(player_pos, potential_pos):
+			kremowka_pos = potential_pos
+			break 
+
+	if kremowka_pos == Vector2i(-1, -1):
+		return
+		
 	var kremowka_instance = kremowka_prefab.instantiate()
 	kremowka_instance.position = Vector3(kremowka_pos.x, 0.5, kremowka_pos.y)
 	add_child(kremowka_instance)
