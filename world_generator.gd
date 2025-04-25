@@ -3,8 +3,8 @@ extends Node3D
 # Ustawienia mapy
 var map_width := 30
 var map_depth := 30
-var wall_height := 3.0
-var wall_chance := 0.4
+var wall_height := 1.0
+var wall_chance := 0.3
 var elapsed_time := 0.0
 
 @onready var timer_label: Label = $TimerLabel

@@ -3,7 +3,7 @@ extends CharacterBody3D
 ## The movement speed in m/s. Default is 5.
 @export_range(1.0,30.0) var speed : float = 5.0
 ## The Jump Velocity in m/s- default to 6.0
-@export_range(2.0,10.0) var jump_velocity : float = 13.0
+@export_range(2.0,10.0) var jump_velocity : float = 3.0
 
 ## Mouse sensitivity for looking around. Default is 3.0
 @export_range(1.0,5.0) var mouse_sensitivity = 3.0

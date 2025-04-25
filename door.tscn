@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://dq3tcy2i87ybh" path="res://door.gd" id="1_v6xrn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hun61"]
-albedo_color = Color(0.542954, 0.348081, 0.117009, 1)
+transparency = 1
 albedo_texture = ExtResource("1_ba8gm")
-uv1_scale = Vector3(2.5, 2.5, 2.5)
+uv1_scale = Vector3(3, 2.4, 2.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ba8gm"]
 material = SubResource("StandardMaterial3D_hun61")
-size = Vector3(1, 2, 0.1)
+size = Vector3(1, 3.5, 0.01)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6xrn"]
 size = Vector3(1, 2, 0.2)
