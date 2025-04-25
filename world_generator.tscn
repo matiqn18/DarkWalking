@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfqacf64q7uef"]
+[gd_scene load_steps=10 format=3 uid="uid://bfqacf64q7uef"]
 
 [ext_resource type="Script" uid="uid://tviswfrlov3t" path="res://world_generator.gd" id="1_yncnp"]
 [ext_resource type="PackedScene" uid="uid://dy26xc485fhld" path="res://addons/srcoder_fps_controller/player.tscn" id="2_1n2ho"]
 [ext_resource type="PackedScene" uid="uid://cqs83vi033p7j" path="res://door.tscn" id="3_rane3"]
 [ext_resource type="PackedScene" uid="uid://caixal426aop4" path="res://kremówka.tscn" id="4_ybd1w"]
 [ext_resource type="AudioStream" uid="uid://bfbchixujy2y2" path="res://addons/srcoder_fps_controller/darkmusic.mp3" id="5_ybd1w"]
+[ext_resource type="AudioStream" uid="uid://diaenp82arrq2" path="res://addons/koniec.mp3" id="6_3mb06"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ybd1w"]
 sky_top_color = Color(0.0352941, 0.00784314, 0.227451, 1)
@@ -46,3 +47,6 @@ theme_override_colors/font_color = Color(0.821534, 0.879137, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0.00"
 horizontal_alignment = 1
+
+[node name="Koniec" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_3mb06")

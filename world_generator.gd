@@ -9,6 +9,8 @@ var elapsed_time := 0.0
 var door: Node3D
 var kremowka: Node3D
 
+@export var cell_size := 1.5
+
 @onready var timer_label: Label = $TimerLabel
 @onready var game_timer: Timer = $Timer
 @onready var audio: AudioStreamPlayer = $AudioStreamPlayer
@@ -37,9 +39,9 @@ func _process(delta):
 		
 	if elapsed_time >= 426:
 		game_timer.stop()
-		#audio.stop()
-		#koniec.play()
-		#await koniec.finished
+		audio.stop()
+		koniec.play()
+		await koniec.finished
 		get_tree().quit()
 
 	elapsed_time += delta
@@ -48,7 +50,6 @@ func _process(delta):
 	timer_label.text = "%02d.%02d" % [minutes, seconds]
 
 func generate_map():
-	# Inicjalizujemy tablicę 2D (false = brak ściany)
 	walls.resize(map_width)
 	for x in map_width:
 		walls[x] = []
@@ -56,7 +57,7 @@ func generate_map():
 			walls[x].append(false)
 
 	var wall_mesh := BoxMesh.new()
-	wall_mesh.size = Vector3(1, wall_height, 1)
+	wall_mesh.size = Vector3(cell_size, wall_height, cell_size)
 
 	for x in map_width:
 		for z in map_depth:
@@ -105,7 +106,7 @@ func is_accessible(x: int, z: int) -> bool:
 func spawn_wall(mesh: Mesh, x: int, z: int):
 	var wall := MeshInstance3D.new()
 	wall.mesh = mesh
-	wall.position = Vector3(x, wall_height / 2.0, z)
+	wall.position = Vector3(x * cell_size, wall_height / 2.0, z * cell_size)
 	add_child(wall)
 	
 	var wall_material :=StandardMaterial3D.new()
@@ -117,7 +118,7 @@ func spawn_wall(mesh: Mesh, x: int, z: int):
 	var static_body := StaticBody3D.new()
 	var collision := CollisionShape3D.new()
 	var box_shape := BoxShape3D.new()
-	box_shape.size = Vector3(1, wall_height, 1)
+	box_shape.size = Vector3(cell_size, wall_height, cell_size)
 	collision.shape = box_shape
 
 	static_body.add_child(collision)
@@ -126,22 +127,21 @@ func spawn_wall(mesh: Mesh, x: int, z: int):
 func generate_floor():
 	var floor := MeshInstance3D.new()
 	var floor_mesh := BoxMesh.new()
-	floor_mesh.size = Vector3(map_width, 0.1, map_depth)
+	floor_mesh.size = Vector3(map_width * cell_size, 0.1, map_depth * cell_size)
 	floor.mesh = floor_mesh
 
-	# ustawiamy czarny materiał
 	var floor_material := StandardMaterial3D.new()
 	floor_material.albedo_color = Color(0, 0, 0) # RGB = (0, 0, 0)
 	floor.material_override = floor_material
 
-	floor.position = Vector3(map_width / 2.0, -0.05, map_depth / 2.0)
+	floor.position = Vector3(map_width * cell_size * 0.5 - cell_size * 0.5, -0.05, map_depth * cell_size * 0.5 - cell_size * 0.5)
 	add_child(floor)
 
 
 	var floor_body := StaticBody3D.new()
 	var floor_collision := CollisionShape3D.new()
 	var floor_shape := BoxShape3D.new()
-	floor_shape.size = Vector3(map_width, 0.1, map_depth)
+	floor_shape.size = Vector3(map_width * cell_size, 0.1, map_depth * cell_size)
 	floor_collision.shape = floor_shape
 	floor_body.add_child(floor_collision)
 	floor.add_child(floor_body)
@@ -160,7 +160,7 @@ func get_random_empty_position() -> Vector2i:
 func generate_border_wall():
 	var wall := MeshInstance3D.new()
 	var wall_mesh := BoxMesh.new()
-	wall_mesh.size = Vector3(1, wall_height, 1)
+	wall_mesh.size = Vector3(cell_size, wall_height, cell_size)
 	add_child(wall)
 	
 	var wall_material :=StandardMaterial3D.new()
@@ -170,11 +170,11 @@ func generate_border_wall():
 	wall.material_override = wall_material
 	
 	for x in range(map_width):
-		spawn_wall(wall_mesh, x, 0)
-		spawn_wall(wall_mesh, x, map_depth - 1)
+		spawn_wall(wall_mesh, x, 0) 
+		spawn_wall(wall_mesh, x, map_depth - 1) 
 
 	for z in range(1, map_depth - 1): 
-		spawn_wall(wall_mesh, 0, z)
+		spawn_wall(wall_mesh, 0, z) 
 		spawn_wall(wall_mesh, map_width - 1, z)
 
 	for x in range(map_width):
@@ -194,7 +194,7 @@ func spawn_player_and_door():
 		return
 
 	var player_instance = player_prefab.instantiate()
-	player_instance.position = Vector3(player_pos.x, 0.5, player_pos.y) # Zakładam, że gracz ma wysokość 1
+	player_instance.position = Vector3(player_pos.x * cell_size, 0.5, player_pos.y * cell_size)
 	add_child(player_instance)
 
 	var door_pos = find_accessible_door_position(player_pos)
@@ -203,7 +203,7 @@ func spawn_player_and_door():
 		return
 
 	var door_instance = door_prefab.instantiate()
-	door_instance.position = Vector3(door_pos.x, 0.5, door_pos.y) # Zakładam, że drzwi też mają podobną wysokość
+	door_instance.position = Vector3(door_pos.x * cell_size, 0.5, door_pos.y * cell_size)
 	add_child(door_instance)
 	
 	var kremowka_pos = Vector2i(-1, -1) 
@@ -230,7 +230,7 @@ func spawn_player_and_door():
 		return
 		
 	var kremowka_instance = kremowka_prefab.instantiate()
-	kremowka_instance.position = Vector3(kremowka_pos.x, 0.5, kremowka_pos.y)
+	kremowka_instance.position = Vector3(kremowka_pos.x * cell_size, 0.5, kremowka_pos.y * cell_size) # Zakładam, że kremówka też ma podobną wysokość
 	add_child(kremowka_instance)
 	
 	door = door_instance

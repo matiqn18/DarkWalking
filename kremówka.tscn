@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://caixal426aop4"]
+[gd_scene load_steps=5 format=3 uid="uid://caixal426aop4"]
 
 [ext_resource type="Script" uid="uid://bvi7lp0y8jkkb" path="res://kremówka.gd" id="1_0sfoq"]
 [ext_resource type="Texture2D" uid="uid://xx3jbctdwo26" path="res://addons/KEY.png" id="2_0sfoq"]
+[ext_resource type="AudioStream" uid="uid://6ncdg5p0agv4" path="res://addons/tam.mp3" id="3_gt203"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gt203"]
 
@@ -17,3 +18,7 @@ collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Kremówkawidok/AreaKremówka"]
 shape = SubResource("SphereShape3D_gt203")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Kremówkawidok/AreaKremówka/CollisionShape3D"]
+stream = ExtResource("3_gt203")
+volume_db = 14.991

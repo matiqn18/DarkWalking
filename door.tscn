@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqs83vi033p7j"]
+[gd_scene load_steps=7 format=3 uid="uid://cqs83vi033p7j"]
 
 [ext_resource type="Script" uid="uid://dq3tcy2i87ybh" path="res://door.gd" id="1_v6xrn"]
 [ext_resource type="Texture2D" uid="uid://lxpxics2p0ck" path="res://addons/door.png" id="2_v6xrn"]
+[ext_resource type="AudioStream" uid="uid://diaenp82arrq2" path="res://addons/koniec.mp3" id="3_0phs7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hun61"]
 transparency = 1
@@ -27,3 +28,6 @@ collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor/Area3D"]
 shape = SubResource("BoxShape3D_v6xrn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0phs7")

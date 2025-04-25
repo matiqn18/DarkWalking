@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var area: Area3D = $LeftDoor/Area3D
-#@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
 @onready var main: AudioStreamPlayer = $"../AudioStreamPlayer"
 @onready var door_mesh: MeshInstance3D = $LeftDoor
 
@@ -24,9 +24,9 @@ func _on_body_entered(body):
 	if aktywne and body.is_in_group("player"):
 		main.stop()
 		aktywne = false
-		#audio.play()
-		#area.monitoring = false
-		#await audio.finished
+		audio.play()
+		area.monitoring = false
+		await audio.finished
 		queue_free()
 		get_tree().quit()
 		
