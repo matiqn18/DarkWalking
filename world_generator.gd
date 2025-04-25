@@ -1,14 +1,18 @@
 extends Node3D
 
 # Ustawienia mapy
-var map_width := 30
-var map_depth := 30
-var wall_height := 1.0
+var map_width := 50
+var map_depth := 50
+var wall_height := 3.0
 var wall_chance := 0.3
 var elapsed_time := 0.0
+var door: Node3D
+var kremowka: Node3D
 
 @onready var timer_label: Label = $TimerLabel
 @onready var game_timer: Timer = $Timer
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var koniec: AudioStreamPlayer = $Koniec
 
 # Prefaby
 @export var player_prefab: PackedScene
@@ -25,10 +29,24 @@ func _ready():
 	spawn_player_and_door()
 	game_timer.start()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	kremowka.collected.connect(door.odblokuj)
 
 func _process(delta):
 	if game_timer.is_stopped():
 		return
+		
+	if elapsed_time >= 7:
+		game_timer.stop()
+		print(">> zatrzymuję audio")
+		audio.stop()
+		print(">> odtwarzam koniec")
+		koniec.play()
+		print(">> czy gra koniec? ", koniec.playing)
+		await koniec.finished
+		print(">> dźwięk zakończony")
+		get_tree().quit()
+
+		
 
 	elapsed_time += delta
 	var minutes = floor(elapsed_time / 60)
@@ -36,7 +54,6 @@ func _process(delta):
 	timer_label.text = "%02d.%02d" % [minutes, seconds]
 
 func generate_map():
-	# Inicjalizujemy tablicę 2D (false = brak ściany)
 	walls.resize(map_width)
 	for x in map_width:
 		walls[x] = []
@@ -179,7 +196,7 @@ func spawn_player_and_door():
 		return
 
 	var player_instance = player_prefab.instantiate()
-	player_instance.position = Vector3(player_pos.x, 0.5, player_pos.y) # Zakładam, że gracz ma wysokość 1
+	player_instance.position = Vector3(player_pos.x, 0.5, player_pos.y)
 	add_child(player_instance)
 
 	var door_pos = find_accessible_door_position(player_pos)
@@ -217,6 +234,10 @@ func spawn_player_and_door():
 	var kremowka_instance = kremowka_prefab.instantiate()
 	kremowka_instance.position = Vector3(kremowka_pos.x, 0.5, kremowka_pos.y)
 	add_child(kremowka_instance)
+	
+	door = door_instance
+	kremowka = kremowka_instance
+
 
 func find_accessible_door_position(start_pos: Vector2i) -> Vector2i:
 	var empty_positions := []

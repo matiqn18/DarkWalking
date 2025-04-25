@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqs83vi033p7j"]
+[gd_scene load_steps=7 format=3 uid="uid://cqs83vi033p7j"]
 
-[ext_resource type="Texture2D" uid="uid://bthv6syfx8vvs" path="res://addons/papiez-z-kremowka.png" id="1_ba8gm"]
 [ext_resource type="Script" uid="uid://dq3tcy2i87ybh" path="res://door.gd" id="1_v6xrn"]
+[ext_resource type="Texture2D" uid="uid://8a3s44haeok7" path="res://addons/papiez-bez-kremowki.png" id="2_v6xrn"]
+[ext_resource type="AudioStream" uid="uid://d1gkr8d8qwthw" path="res://addons/kremówka.mp3" id="3_0phs7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hun61"]
 transparency = 1
-albedo_texture = ExtResource("1_ba8gm")
+albedo_texture = ExtResource("2_v6xrn")
 uv1_scale = Vector3(3, 2.4, 2.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ba8gm"]
@@ -13,14 +14,21 @@ material = SubResource("StandardMaterial3D_hun61")
 size = Vector3(1, 3.5, 0.01)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6xrn"]
-size = Vector3(1, 2, 0.2)
+size = Vector3(1, 3, 1)
 
 [node name="Drzwi" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00601, 0)
 script = ExtResource("1_v6xrn")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0phs7")
+volume_db = 12.18
+
 [node name="LeftDoor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_ba8gm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor"]
+[node name="Area3D" type="Area3D" parent="LeftDoor"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor/Area3D"]
 shape = SubResource("BoxShape3D_v6xrn")

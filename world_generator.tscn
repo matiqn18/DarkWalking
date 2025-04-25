@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfqacf64q7uef"]
+[gd_scene load_steps=11 format=3 uid="uid://bfqacf64q7uef"]
 
 [ext_resource type="Script" uid="uid://tviswfrlov3t" path="res://world_generator.gd" id="1_yncnp"]
 [ext_resource type="PackedScene" uid="uid://dy26xc485fhld" path="res://addons/srcoder_fps_controller/player.tscn" id="2_1n2ho"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b03uv2nrcdai7" path="res://addons/blogoslawieni.ogg" id="4_rane3"]
 [ext_resource type="PackedScene" uid="uid://caixal426aop4" path="res://kremówka.tscn" id="4_ybd1w"]
 [ext_resource type="Texture2D" uid="uid://bthv6syfx8vvs" path="res://addons/papiez-z-kremowka.png" id="5_3mb06"]
+[ext_resource type="AudioStream" uid="uid://0155jtra8nct" path="res://addons/koniec.mp3" id="7_6isq6"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6isq6"]
 panorama = ExtResource("5_3mb06")
@@ -50,3 +51,7 @@ theme_override_colors/font_color = Color(0.821534, 0.879137, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "0.00"
 horizontal_alignment = 1
+
+[node name="Koniec" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6isq6")
+volume_db = 3.748

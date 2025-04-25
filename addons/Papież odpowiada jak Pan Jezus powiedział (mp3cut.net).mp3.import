@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6n3vfp83uo3c"
+path="res://.godot/imported/Papież odpowiada jak Pan Jezus powiedział (mp3cut.net).mp3-46c6e398e96c50703a7ffa9810785311.mp3str"
+
+[deps]
+
+source_file="res://addons/Papież odpowiada jak Pan Jezus powiedział (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/Papież odpowiada jak Pan Jezus powiedział (mp3cut.net).mp3-46c6e398e96c50703a7ffa9810785311.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
