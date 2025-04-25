@@ -35,18 +35,12 @@ func _process(delta):
 	if game_timer.is_stopped():
 		return
 		
-	if elapsed_time >= 7:
+	if elapsed_time >= 1279:
 		game_timer.stop()
-		print(">> zatrzymuję audio")
 		audio.stop()
-		print(">> odtwarzam koniec")
 		koniec.play()
-		print(">> czy gra koniec? ", koniec.playing)
 		await koniec.finished
-		print(">> dźwięk zakończony")
 		get_tree().quit()
-
-		
 
 	elapsed_time += delta
 	var minutes = floor(elapsed_time / 60)

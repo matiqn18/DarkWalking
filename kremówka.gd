@@ -12,8 +12,10 @@ func _ready():
 func _on_body_entered(body):
 
 	if body.is_in_group("player"):
-		main.volume_db = 1
+		main.stop()
 		pickup_sound.play()
+		await pickup_sound.finished
+		main.play()
 		collected.emit() 
 		hide() # Ukryj wizualnie
 		area_3d.get_node("CollisionShape3D").disabled = true
