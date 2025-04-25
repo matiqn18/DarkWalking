@@ -16,6 +16,7 @@ size = Vector3(1, 2, 0.1)
 size = Vector3(1, 2, 0.2)
 
 [node name="Drzwi" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02943, 0)
 script = ExtResource("1_v6xrn")
 
 [node name="LeftDoor" type="MeshInstance3D" parent="."]

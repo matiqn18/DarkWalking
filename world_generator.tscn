@@ -1,24 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfqacf64q7uef"]
+[gd_scene load_steps=9 format=3 uid="uid://bfqacf64q7uef"]
 
 [ext_resource type="Script" uid="uid://tviswfrlov3t" path="res://world_generator.gd" id="1_yncnp"]
 [ext_resource type="PackedScene" uid="uid://dy26xc485fhld" path="res://addons/srcoder_fps_controller/player.tscn" id="2_1n2ho"]
 [ext_resource type="PackedScene" uid="uid://cqs83vi033p7j" path="res://door.tscn" id="3_rane3"]
-[ext_resource type="AudioStream" uid="uid://b03uv2nrcdai7" path="res://addons/blogoslawieni.ogg" id="4_rane3"]
 [ext_resource type="PackedScene" uid="uid://caixal426aop4" path="res://kremówka.tscn" id="4_ybd1w"]
-[ext_resource type="Texture2D" uid="uid://bthv6syfx8vvs" path="res://addons/papiez-z-kremowka.png" id="5_3mb06"]
+[ext_resource type="AudioStream" uid="uid://bfbchixujy2y2" path="res://addons/srcoder_fps_controller/darkmusic.mp3" id="5_ybd1w"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_6isq6"]
-panorama = ExtResource("5_3mb06")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ybd1w"]
+sky_top_color = Color(0.0352941, 0.00784314, 0.227451, 1)
+sky_horizon_color = Color(0.0453984, 0.0337396, 0.0881506, 1)
+ground_bottom_color = Color(0.0227741, 0.00358964, 0.0016257, 1)
+ground_horizon_color = Color(0.0453984, 0.0337396, 0.0881506, 1)
+energy_multiplier = 0.45
 
-[sub_resource type="Sky" id="Sky_rane3"]
-sky_material = SubResource("PanoramaSkyMaterial_6isq6")
-radiance_size = 5
+[sub_resource type="Sky" id="Sky_3mb06"]
+sky_material = SubResource("ProceduralSkyMaterial_ybd1w")
 
-[sub_resource type="Environment" id="Environment_ybd1w"]
+[sub_resource type="Environment" id="Environment_6isq6"]
 background_mode = 2
-sky = SubResource("Sky_rane3")
-sky_custom_fov = 90.0
-tonemap_mode = 2
+sky = SubResource("Sky_3mb06")
 glow_enabled = true
 
 [node name="WorldGenerator" type="Node3D"]
@@ -28,14 +28,10 @@ door_prefab = ExtResource("3_rane3")
 kremowka_prefab = ExtResource("4_ybd1w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ybd1w")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+environment = SubResource("Environment_6isq6")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_rane3")
+stream = ExtResource("5_ybd1w")
 volume_db = 6.665
 autoplay = true
 parameters/looping = true
