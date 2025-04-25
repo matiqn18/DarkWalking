@@ -22,5 +22,8 @@ script = ExtResource("1_v6xrn")
 [node name="LeftDoor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_ba8gm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor"]
+[node name="Area3D" type="Area3D" parent="LeftDoor"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftDoor/Area3D"]
 shape = SubResource("BoxShape3D_v6xrn")

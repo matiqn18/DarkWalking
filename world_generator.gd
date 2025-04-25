@@ -1,14 +1,18 @@
 extends Node3D
 
 # Ustawienia mapy
-var map_width := 30
-var map_depth := 30
+var map_width := 50
+var map_depth := 50
 var wall_height := 3.0
 var wall_chance := 0.3
 var elapsed_time := 0.0
+var door: Node3D
+var kremowka: Node3D
 
 @onready var timer_label: Label = $TimerLabel
 @onready var game_timer: Timer = $Timer
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var koniec: AudioStreamPlayer = $Koniec
 
 # Prefaby
 @export var player_prefab: PackedScene
@@ -25,10 +29,18 @@ func _ready():
 	spawn_player_and_door()
 	game_timer.start()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	kremowka.collected.connect(door.odblokuj)
 
 func _process(delta):
 	if game_timer.is_stopped():
 		return
+		
+	if elapsed_time >= 426:
+		game_timer.stop()
+		#audio.stop()
+		#koniec.play()
+		#await koniec.finished
+		get_tree().quit()
 
 	elapsed_time += delta
 	var minutes = floor(elapsed_time / 60)
@@ -220,6 +232,9 @@ func spawn_player_and_door():
 	var kremowka_instance = kremowka_prefab.instantiate()
 	kremowka_instance.position = Vector3(kremowka_pos.x, 0.5, kremowka_pos.y)
 	add_child(kremowka_instance)
+	
+	door = door_instance
+	kremowka = kremowka_instance
 
 func find_accessible_door_position(start_pos: Vector2i) -> Vector2i:
 	var empty_positions := []

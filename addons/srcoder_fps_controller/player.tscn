@@ -9,7 +9,7 @@ radius = 0.3
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ha1jo"]
 radius = 0.3
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10191, 0)
 script = ExtResource("1_f6swd")

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://xx3jbctdwo26" path="res://addons/KEY.png" id="2_0sfoq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gt203"]
-radius = 0.3
 
 [node name="KREMÓWKA" type="Node3D"]
 script = ExtResource("1_0sfoq")
@@ -14,6 +13,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1, 0)
 texture = ExtResource("2_0sfoq")
 
 [node name="AreaKremówka" type="Area3D" parent="Kremówkawidok"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Kremówkawidok/AreaKremówka"]
 shape = SubResource("SphereShape3D_gt203")
