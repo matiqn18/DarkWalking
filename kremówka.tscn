@@ -7,10 +7,11 @@
 radius = 0.3
 
 [node name="KREMÓWKA" type="Node3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("1_0sfoq")
 
 [node name="Kremówkawidok" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.164074, 1.13562, -0.794271)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
 texture = ExtResource("1_uvir8")
 
 [node name="AreaKremówka" type="Area3D" parent="Kremówkawidok"]

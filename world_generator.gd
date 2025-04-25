@@ -4,7 +4,7 @@ extends Node3D
 var map_width := 30
 var map_depth := 30
 var wall_height := 3.0
-var wall_chance := 0.3
+var wall_chance := 0.4
 var elapsed_time := 0.0
 
 @onready var timer_label: Label = $TimerLabel
@@ -171,9 +171,6 @@ func generate_border_wall():
 	for z in range(map_depth):
 		walls[0][z] = true
 		walls[map_width - 1][z] = true
-	
-	
-	
 
 func spawn_player_and_door():
 	var player_pos = get_random_empty_position()
@@ -191,16 +188,32 @@ func spawn_player_and_door():
 		return
 
 	var door_instance = door_prefab.instantiate()
-	door_instance.position = Vector3(door_pos.x, 0.5, door_pos.y) # Zakładam, że drzwi też mają podobną wysokość
+	door_instance.position = Vector3(door_pos.x, 0.5, door_pos.y) 
 	add_child(door_instance)
 	
-	var kremowka_pos = get_random_empty_position()
-	while kremowka_pos == player_pos or kremowka_pos == door_pos:
-		kremowka_pos = get_random_empty_position()
-		if kremowka_pos == Vector2i(-1, -1):
-			printerr("Nie udało się znaleźć unikalnej pustej pozycji dla kremówki!")
-			return
+	var kremowka_pos = Vector2i(-1, -1) 
+	var attempts = 0
+	var max_attempts = 100
 
+	while attempts < max_attempts:
+		attempts += 1
+		var potential_pos = get_random_empty_position()
+
+		if potential_pos == Vector2i(-1, -1):
+			printerr("Nie udało się znaleźć ŻADNEJ pustej pozycji dla kremówki w próbie nr ", attempts)
+			continue 
+
+
+		if potential_pos == player_pos or potential_pos == door_pos:
+			continue
+
+		if path_exists(player_pos, potential_pos):
+			kremowka_pos = potential_pos
+			break 
+
+	if kremowka_pos == Vector2i(-1, -1):
+		return
+		
 	var kremowka_instance = kremowka_prefab.instantiate()
 	kremowka_instance.position = Vector3(kremowka_pos.x, 0.5, kremowka_pos.y)
 	add_child(kremowka_instance)
@@ -215,7 +228,7 @@ func find_accessible_door_position(start_pos: Vector2i) -> Vector2i:
 	if empty_positions.is_empty():
 		return Vector2i(-1, -1)
 
-	for _i in range(100): # Próbujemy znaleźć dostępną pozycję kilka razy, aby uniknąć nieskończonej pętli
+	for _i in range(100):
 		var potential_door_pos = empty_positions.pick_random()
 		if path_exists(start_pos, potential_door_pos):
 			return potential_door_pos
